@@ -1,8 +1,8 @@
 import streamlit as st
 import requests
 
-LLAMA_API_KEY = "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"
-LLAMA_API_URL = "https://api.groq.com/openai/v1" 
+LLAMA_API_KEY = "LA-ea099ef9395941abb1a724a831fe15d7ef19fd4c47c042069fc859f7d9389e23"
+LLAMA_API_URL = "https://api.llama-api.com" 
 
 
 st.title("CircuitSage 🧠🤖")
