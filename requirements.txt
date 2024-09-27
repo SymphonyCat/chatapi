@@ -1,5 +1,11 @@
-streamlit
-openai
 langchain
 langchain_community
-llama
+langchain_core
+langchain_openai
+python-dotenv
+streamlit
+chromadb
+bs4
+ngrok
+llama-index
+nltk
