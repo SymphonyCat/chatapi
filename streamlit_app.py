@@ -1,26 +1,39 @@
-
-from langchain_core.prompts import ChatPromptTemplate
-from langchain_community.llms import Ollama
 import streamlit as st
+from llama_client import LlamaClient  # Suponiendo que tienes un cliente para LLaMA
 
-# Define a prompt template for the chatbot
-prompt=ChatPromptTemplate.from_messages(
-    [
-        ("system","You are a helpful assistant. Please response to the questions"),
-        ("user","Question:{question}")
-    ]
+# Configura el cliente de LLaMA (asegúrate de que esté bien configurado)
+llama_model = LlamaClient(model_path="LA-ea099ef9395941abb1a724a831fe15d7ef19fd4c47c042069fc859f7d9389e23")
+
+# Show title and description.
+st.title("💬 Chatbot LLaMA")
+st.write(
+    "This is a simple chatbot that uses LLaMA to generate responses. "
+    "You can learn how to build this app step by step by [following our tutorial](https://docs.streamlit.io/develop/tutorials/llms/build-conversational-apps)."
 )
 
-# Set up the Streamlit framework
-st.title('Langchain Chatbot With LLAMA2 model')  # Set the title of the Streamlit app
-input_text=st.text_input("Ask your question!")  # Create a text input field in the Streamlit app
+# Create a session state variable to store the chat messages.
+if "messages" not in st.session_state:
+    st.session_state.messages = []
 
-# Initialize the Ollama model
-llm=Ollama(model="llama3")
+# Display the existing chat messages.
+for message in st.session_state.messages:
+    with st.chat_message(message["role"]):
+        st.markdown(message["content"])
 
-# Create a chain that combines the prompt and the Ollama model
-chain=prompt|llm
+# Create a chat input field to allow the user to enter a message.
+if prompt := st.chat_input("What is up?"):
+    # Store and display the current prompt.
+    st.session_state.messages.append({"role": "user", "content": prompt})
+    with st.chat_message("user"):
+        st.markdown(prompt)
 
-# Invoke the chain with the input text and display the output
-if input_text:
-    st.write(chain.invoke({"question":input_text}))
+    # Generate a response using the LLaMA model.
+    response = llama_model.generate_response(
+        prompt,
+        history=st.session_state.messages  # Si tu cliente admite el historial
+    )
+
+    # Stream the response to the chat.
+    with st.chat_message("assistant"):
+        st.markdown(response)
+    st.session_state.messages.append({"role": "assistant", "content": response})
