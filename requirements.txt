@@ -1,6 +1,6 @@
 streamlit
 openai
-longchain
-longchain_community
+langchain
+langchain_community
 Ollama
 llama
