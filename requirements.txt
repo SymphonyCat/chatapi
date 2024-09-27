@@ -1,2 +1,6 @@
 streamlit
 openai
+longchain
+longchain_community
+Ollama
+llama
