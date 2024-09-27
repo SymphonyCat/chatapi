@@ -2,7 +2,7 @@ import streamlit as st
 from llama_client import LlamaClient  # Suponiendo que tienes un cliente para LLaMA
 
 # Configura el cliente de LLaMA (asegúrate de que esté bien configurado)
-llama_model = LlamaClient(model_path="path/to/your/llama/model")
+llama_model = LlamaClient(model_path="LA-ea099ef9395941abb1a724a831fe15d7ef19fd4c47c042069fc859f7d9389e23")
 
 # Show title and description.
 st.title("💬 Chatbot LLaMA")
